@@ -1,16 +1,31 @@
-$('#results').click(function(){
-  var response = $(this).text();
-  var apiKey = "5bd8749a23183b78cd741f75f69c63831efb275f";
-  var url = 'http://gateway-a.watsonplatform.net/calls/text/TextGetRankedKeywords'
-  debugger;
-  $.getJSON(url, {
-    data: {apikey: apiKey, text: response},
-    success: function(data){
-      debugger;
-        console.log(data);
-      }
-    });
-});
+var url = 'http://access.alchemyapi.com/calls/text/TextGetRelations';
+var text = 'Trump is popular becauseoe American was at the top'
+var params = "apikey=5bd8749a23183b78cd741f75f69c63831efb275f&outputMode=json&text=" + text;
+var xhr = createCORSRequest('POST', url);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.send(params);
+// Response handlers.
+xhr.onload = function() {
+  var text = xhr.responseText;
+  console.log('Response from CORS request to ' + url + ': ' + text);
+};
+// Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
 
 var langs =
 [
@@ -183,7 +198,7 @@ function startButton(event) {
   ignore_onend = false;
   final_span.innerHTML = '';
   interim_span.innerHTML = '';
-  start_img.src = 'mic-slash.gif';
+  start_img.src = '/assests/images/mic-slash.gif';
   showInfo('info_allow');
   showButtons('none');
   start_timestamp = event.timeStamp;
