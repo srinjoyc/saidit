@@ -1,4 +1,7 @@
 
 <h1> Hi </h1>
-<%= @response['keywords'][0]['text'] %>
-<%= @response['keywords'][0]['relevance'] %>
+<% @response['keywords'].each_with_index do |keyword,index|%>
+	<%= keyword['text'] %>
+	<%= keyword['relevance'] %>
+<% end %>
+
