@@ -1,14 +1,51 @@
-var url = 'http://access.alchemyapi.com/calls/text/TextGetRelations';
-var text = 'Trump is popular becauseoe American was at the top'
-var params = "apikey=5bd8749a23183b78cd741f75f69c63831efb275f&outputMode=json&text=" + text;
-var xhr = createCORSRequest('POST', url);
-xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhr.send(params);
-// Response handlers.
-xhr.onload = function() {
-  var text = xhr.responseText;
-  console.log('Response from CORS request to ' + url + ': ' + text);
-};
+keywords = [];
+emotions = [];
+$("#results").on('click', function (){
+  //var type = ''
+  //var base = ''
+  var url = 'http://gateway-a.watsonplatform.net/calls/text/TextGetRankedKeywords';
+  var text = $("#final_span").text();
+  $("#speech_to_text").val(text);
+  alert(text);
+  $("#user_input").submit();
+  // var params = "apikey=80c4eeba62ee120385203935c885629f28e9b2ca&outputMode=json&text=" + text;
+  // var xhr = createCORSRequest('POST', url);
+  // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  // xhr.send(params);
+  // // Response handlers.
+  // xhr.onload = function() {
+  //   var text = xhr.responseText;
+  //   var jsontext = JSON.parse(text);
+  //   console.log('Response from CORS request to ' + url + ': ' + text);
+  //   for(var i = 0; i < jsontext.keywords.length; i++) {
+  //     if(jsontext.keywords[i]['relevance'] > 0.3){
+  //       keywords.push(jsontext.keywords[i]['text']);
+  //     }
+  //     console.log(keywords);
+  //   }
+  // };
+});
+
+$("#results").on('click', function (){
+  var url = 'http://gateway-a.watsonplatform.net/calls/text/TextGetRankedKeywords';
+  var text = $("#final_span").text();
+  var params = "apikey=5bd8749a23183b78cd741f75f69c63831efb275f&outputMode=json&text=" + text;
+  var xhr = createCORSRequest('POST', url);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(params);
+  // Response handlers.
+  xhr.onload = function() {
+    var text = xhr.responseText;
+    var jsontext = JSON.parse(text);
+    console.log('Response from CORS request to ' + url + ': ' + text);
+    for(var i = 0; i < jsontext.keywords.length; i++) {
+      if(jsontext.keywords[i]['relevance'] > 0.3){
+      keywords.push(jsontext.keywords[i]['text']);
+      }
+      console.log(keywords);
+    }
+  };
+});
 // Create the XHR object.
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();

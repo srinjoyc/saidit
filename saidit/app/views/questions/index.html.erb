@@ -1,4 +1,29 @@
-
+<script type="text/javascript">
+keywords = [];
+emotions = [];
+$("#results").on('click', function (){
+  //var type = ''
+  //var base = ''
+  var url = 'http://gateway-a.watsonplatform.net/calls/text/TextGetRankedKeywords';
+  var text = $("#final_span").text();
+  var params = "apikey=5bd8749a23183b78cd741f75f69c63831efb275f&outputMode=json&text=" + text;
+  var xhr = createCORSRequest('POST', url);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(params);
+  // Response handlers.
+  xhr.onload = function() {
+    var text = xhr.responseText;
+    var jsontext = JSON.parse(text);
+    console.log('Response from CORS request to ' + url + ': ' + text);
+    for(var i = 0; i < jsontext.keywords.length; i++) {
+      if(jsontext.keywords[i]['relevance'] > 0.3){
+      keywords.push(jsontext.keywords[i]['text']);
+      }
+      console.log(keywords);
+    }
+  };
+});
+</script>
 
 <h1 class="center" id="headline">
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
@@ -52,4 +77,13 @@
     &nbsp;&nbsp;
     <select id="select_dialect"></select>
   </div>
+  <!-- <form method="post" action= "/questions" id="user_input">
+    <button value="submit"> Finished </button>
+    <input type='text' name='text_response' id="text_response" ></input>
+  </form> -->
+  <%= form_tag(questions_path, :method => "post") do %>
+    <%= label_tag(:speech_to_text, "Your text: ") %>
+    <%= text_field_tag(:speech_to_text) %>
+    <%= submit_tag("finished") %>
+  <% end %>
 </div>
