@@ -17,8 +17,12 @@ class QuestionsController < ApplicationController
 				if(!newKeyWord.save)
 					puts "Error"
 				end
-			end  
-		end 
-		render "questions/stats"
+			end 
+		@response= {}
+		@response['keywords'] = keyword.keyword
+		@response['relevance'] = keyword.relevance
+		render "questions/stats"	 
+		end
+		
 	end 
 end
