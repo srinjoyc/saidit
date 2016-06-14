@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require Chart
-//= require_tree .
-
+//= require_tree 
 //= require_doughnutgraph.js

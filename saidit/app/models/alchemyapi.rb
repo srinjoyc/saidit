@@ -82,9 +82,12 @@ class AlchemyAPI
 	@@ENDPOINTS['combined']['text'] = '/text/TextGetCombinedData'
 	@@ENDPOINTS['image_extract'] = {}
 	@@ENDPOINTS['image_extract']['url'] = '/url/URLGetImage'
+	@@ENDPOINTS['emotion'] = {}
+	@@ENDPOINTS['emotion']['text'] = '/text/TextGetEmotion'
 	@@ENDPOINTS['image_tag'] = {}
 	@@ENDPOINTS['image_tag']['url'] = '/url/URLGetRankedImageKeywords'
 	@@ENDPOINTS['image_tag']['image'] = '/image/ImageGetRankedImageKeywords'
+
 		
 	@@BASE_URL = 'http://access.alchemyapi.com/calls'
 	
@@ -180,6 +183,10 @@ class AlchemyAPI
 		return analyze(@@ENDPOINTS['sentiment_targeted'][flavor], options)
 	end
 
+	def emotional_assesment(flavor, data, options = {})
+			options[flavor] = data
+			return analyze(@@ENDPOINTS['emotion'][flavor], options)
+	end 
 
 	# Extracts the entities for text, a URL or HTML.
 	# For an overview, please refer to: http://www.alchemyapi.com/products/features/entity-extraction/ 
