@@ -11,9 +11,11 @@ class QuestionsController < ApplicationController
 		@question_id = params[:question_id]
 		alchemyapi = AlchemyAPI.new()
 		@response = alchemyapi.keywords('text', user_input , { 'sentiment'=>1 })
+		@validKeywords = []
 		@response['keywords'].each do |keyword|
 			if(Keyword.processKeyword(keyword))	
-				newKeyWord = Keyword.create(keyword: keyword['text'])
+				newKeyWord = Keyword.create(keyword: keyword['text'], relevance: keyword['relevance'])
+				@validKeywords.push(newKeyWord)
 				if(!newKeyWord.save)
 					puts "Error"
 				end

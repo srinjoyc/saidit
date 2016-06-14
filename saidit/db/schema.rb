@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613223953) do
+ActiveRecord::Schema.define(version: 20160614002951) do
 
   create_table "keywords", force: :cascade do |t|
-    t.string "keyword"
+    t.string  "keyword"
+    t.integer "question_id"
+    t.float   "relevance"
   end
 
   create_table "questions", force: :cascade do |t|

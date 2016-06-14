@@ -1,5 +1,5 @@
 class AddQuestiontoKeywords < ActiveRecord::Migration
   def change
-  	add_foreign_key :keywords, :question 
+  	add_reference :keywords, :question 
   end
 end

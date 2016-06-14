@@ -5,10 +5,12 @@ class Keyword < ActiveRecord::Base
 	class << self 
 
 		def processKeyword(keyword)
-			if(keyword['relevance'].to_i > 0.9)
-				binding.pry
-				return true;
-			else return false;
+			if(keyword['relevance'].to_f > 0.6)
+				puts "************************************************************"
+				puts "#{keyword['relevance']}"
+				puts "************************************************************"
+				return true
+			else return false
 			end 
 		end  
 
