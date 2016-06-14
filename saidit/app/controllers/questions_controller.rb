@@ -7,22 +7,19 @@ class QuestionsController < ApplicationController
 	end 
 
 	def create
+		@response = {}
+		@response["keywords"] = []
+		@response["relevance"] = []
 		user_input = params[:speech_to_text]
 		@question_id = params[:question_id]
 		alchemyapi = AlchemyAPI.new()
-		@response = alchemyapi.keywords('text', user_input , { 'sentiment'=>1 })
-		@response['keywords'].each do |keyword|
-			if(Keyword.processKeyword(keyword))	
-				newKeyWord = Keyword.create(keyword: keyword['text'])
-				if(!newKeyWord.save)
-					puts "Error"
-				end
-			end 
-		@response= {}
-		@response['keywords'] = keyword.keyword
-		@response['relevance'] = keyword.relevance
-		render "questions/stats"	 
+		api_response = alchemyapi.keywords('text', user_input , { 'sentiment'=>1 })
+		api_response['keywords'].each do |keyword|
+			@response["keywords"] << keyword['text']
+			@response["relevance"] << keyword['relevance']
 		end
+	
+		render "questions/stats"	 
 		
 	end 
 end
