@@ -1,5 +1,6 @@
 
 <h1> Hi </h1>
+<%= @question_id %>
 <% @response['keywords'].each_with_index do |keyword,index|%>
 	<%= keyword['text'] %>
 	<%= keyword['relevance'] %>

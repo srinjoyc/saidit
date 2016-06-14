@@ -26,6 +26,7 @@ $("#results").on('click', function (){
 </script>
 
 <h1 class="center" id="headline">
+    <%= @question.question %>
   <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
     Web Speech API</a> Demonstration</h1>
 <div id="info">
@@ -84,6 +85,7 @@ $("#results").on('click', function (){
   <%= form_tag(questions_path, :method => "post") do %>
     <%= label_tag(:speech_to_text, "Your text: ") %>
     <%= text_field_tag(:speech_to_text) %>
+    <%= hidden_field_tag "question_id", @question.id %> 
     <%= submit_tag("finished") %>
   <% end %>
 </div>
