@@ -1,5 +1,6 @@
 <html>
 
+<<<<<<< HEAD
   <script type="text/script" src="chart.js"></script>
   <script language="javascript" type="text/javascript">
     function myfunction(){
@@ -56,4 +57,12 @@
 
 </body>
 </html>
+=======
+<h1> Hi </h1>
+<%= @question_id %>
+<% @response['keywords'].each_with_index do |keyword,index|%>
+	<%= keyword['text'] %>
+	<%= keyword['relevance'] %>
+<% end %>
+>>>>>>> 1d461bce15f11343b2730fc12ffa921a90a7caab
 
